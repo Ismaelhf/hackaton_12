@@ -6,14 +6,21 @@ import {
   TouchableHighlight,
   Text,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
-
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 const Tourism = ({data, navigation}) => {
   return (
     <>
       {data.map((item) => (
-        <TouchableHighlight
-          onPress={() => navigation.navigate('Tourism', {item: {item}})}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Tourism', {
+              item: {item},
+              navigation: {navigation},
+            })
+          }>
           <View>
             <Text>{item.title}</Text>
             <Image
@@ -23,7 +30,7 @@ const Tourism = ({data, navigation}) => {
               }}
             />
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       ))}
     </>
   );

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Image,
+  TouchableOpacity,
   TouchableHighlight,
   Text,
   ScrollView,
@@ -13,7 +14,7 @@ const Foods = ({data, navigation}) => {
     <>
       {data.map((item) => (
         <View style={styles.listadoItem}>
-          <TouchableHighlight
+          <TouchableOpacity
             onPress={() => navigation.navigate('Foods', {item: {item}})}>
             <Image
               style={styles.mejores}
@@ -21,7 +22,7 @@ const Foods = ({data, navigation}) => {
                 uri: item.image,
               }}
             />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       ))}
     </>

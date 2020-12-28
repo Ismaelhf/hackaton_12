@@ -6,13 +6,14 @@ import {
   TouchableHighlight,
   Text,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 
 const Housing = ({data, navigation}) => {
   return (
     <>
       {data.map((item) => (
-        <TouchableHighlight
+        <TouchableOpacity
           onPress={() => navigation.navigate('Housing', {item: {item}})}>
           <View>
             <Image
@@ -22,7 +23,7 @@ const Housing = ({data, navigation}) => {
               }}
             />
           </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
       ))}
     </>
   );

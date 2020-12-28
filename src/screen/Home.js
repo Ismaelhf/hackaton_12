@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -14,6 +14,7 @@ import {
   Text,
   ScrollView,
   TouchableHighlight,
+  TouchableOpacity,
 } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -26,9 +27,88 @@ import {tourismData} from '../data/tourismData';
 import {housingData} from '../data/housingData';
 import {foodsData} from '../data/foodsData';
 
+import Api from '../api';
+
 const Stack = createStackNavigator();
 
 const Home = ({navigation}) => {
+  const [serviceTourism, setServiceTourism] = useState([]);
+  const [serviceHousing, setServiceHousing] = useState([]);
+  const [serviceFoods, setServiceFoods] = useState([]);
+  const [error, setError] = useState('');
+  useEffect(() => {
+    Api.serviceApi
+      .getTourism()
+      .then((data) => {
+        if (data.errors) {
+          // console.warn('get api order error', data);
+          setError(data.errors);
+        } else {
+          // console.warn('get api order', data);
+          setServiceTourism(data);
+        }
+      })
+      .catch((e) => {
+        console.warn('get api order catch', e);
+        setError(e.errors);
+      });
+  }, []);
+  useEffect(() => {
+    Api.serviceApi
+      .getTourism()
+      .then((data) => {
+        if (data.errors) {
+          // console.warn('get api order error', data);
+          setError(data.errors);
+        } else {
+          // console.warn('get api order', data);
+          setServiceTourism(data);
+        }
+      })
+      .catch((e) => {
+        console.warn('get api order catch', e);
+        setError(e.errors);
+      });
+
+    Api.serviceApi
+      .getHousing()
+      .then((data) => {
+        if (data.errors) {
+          // console.warn('get api order error', data);
+          setError(data.errors);
+        } else {
+          // console.warn('get api order', data);
+          setServiceHousing(data);
+        }
+      })
+      .catch((e) => {
+        console.warn('get api order catch', e);
+        setError(e.errors);
+      });
+
+    Api.serviceApi
+      .getFoods()
+      .then((data) => {
+        if (data.errors) {
+          // console.warn('get api order error', data);
+          setError(data.errors);
+        } else {
+          // console.warn('get api order', data);
+          setServiceFoods(data);
+        }
+      })
+      .catch((e) => {
+        console.warn('get api order catch', e);
+        setError(e.errors);
+      });
+  }, []);
+  // const goToOrder = (item) => {
+  //   console.warn('goToOrder item', item);
+  //   navigation.navigate('OrderDetail', item);
+  // };
+
+  // console.warn(serviceTourism);
+
   return (
     <>
       <ScrollView>
@@ -45,23 +125,23 @@ const Home = ({navigation}) => {
           <Text style={styles.titulo}>Que hacer en Perú</Text>
 
           <ScrollView horizontal={true}>
-            <Tourism data={tourismData} navigation={navigation} />
+            <Tourism data={serviceTourism} navigation={navigation} />
           </ScrollView>
 
           <Text style={styles.titulo}>Mejores alojamientos</Text>
           <View>
-            <Housing data={housingData} navigation={navigation} />
+            <Housing data={serviceHousing} navigation={navigation} />
           </View>
 
           <Text style={styles.titulo}>Platos</Text>
           <View style={styles.listado}>
-            <Foods data={foodsData} navigation={navigation} />
+            <Foods data={serviceFoods} navigation={navigation} />
           </View>
 
           <View style={styles.button}>
-            <TouchableHighlight onPress={() => navigation.navigate('Contact')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Contact')}>
               <Text style={styles.contact}>Contactanos</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

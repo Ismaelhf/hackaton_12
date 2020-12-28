@@ -16,6 +16,7 @@ import Tourism from './src/screen/Tourism';
 import Housing from './src/screen/Housing';
 import Foods from './src/screen/Foods';
 import Contact from './src/screen/Contact';
+import Reservation from './src/screen/Reservation';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ const App = () => {
           <Stack.Screen name="Housing" component={Housing} />
           <Stack.Screen name="Foods" component={Foods} />
           <Stack.Screen name="Contact" component={Contact} />
+          <Stack.Screen name="Reservation" component={Reservation} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
